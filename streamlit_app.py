@@ -37,6 +37,10 @@ df = df[~df['firstName'].str.startswith('test')]
 # remove all entries where the first name is 'Can' and the last name is 'Kayalan'
 df = df[~((df['firstName'] == 'Can') & (df['lastName'] == 'Kayalan'))]
 
+# remove all entries where the nation is 'Antarctica'
+df = df[~(df['nationality'] == 'Antarctica')]
+
+
 
 # creaete a graph of the cumulative number of applications over time
 st.subheader('Cumulative applications over time')
