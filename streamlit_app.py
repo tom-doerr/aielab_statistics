@@ -30,6 +30,14 @@ df = pd.DataFrame(rows)
 df.columns = [desc[0] for desc in cur.description]
 
 
+# filter the data
+# remove all entries where the first name starts with 'test'
+df = df[~df['firstName'].str.startswith('test')]
+
+# remove all entries where the first name is 'Can' and the last name is 'Kayalan'
+df = df[~((df['firstName'] == 'Can') & (df['lastName'] == 'Kayalan'))]
+
+
 # creaete a graph of the cumulative number of applications over time
 st.subheader('Cumulative applications over time')
 created_at = df['createdAt'].value_counts().sort_index()
