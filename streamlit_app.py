@@ -93,5 +93,13 @@ fig = go.Figure()
 fig.add_trace(go.Bar(x=part_of_team.index, y=part_of_team.values))
 st.plotly_chart(fig, use_container_width=True)
 
+# heard about distribution
+st.subheader('Heard about distribution')
+heard_about = df['heardAbout'].value_counts().sort_values(ascending=False)
+heard_about.index = heard_about.index.str.strip()
+fig = go.Figure()
+fig.add_trace(go.Bar(x=heard_about.index, y=heard_about.values))
+st.plotly_chart(fig, use_container_width=True)
+
 
 
