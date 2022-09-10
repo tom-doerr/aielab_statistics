@@ -8,26 +8,28 @@ from plotly import graph_objects as go
 DATABASE_URL = st.secrets["database_url"]
 TABLE_NAME = 'aielabs_aielabsapplicationform'
 
-# connect to database
-conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-cur = conn.cursor()
+with st.spinner('Connecting to database...'):
+    # connect to database
+    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+    cur = conn.cursor()
 
-# display schema
-if False:
-    cur.execute(f"SELECT column_name, data_type FROM information_schema.columns WHERE table_name = '{TABLE_NAME}'")
-    schema = cur.fetchall()
-    st.write(schema)
-    print(schema)
+    # display schema
+    if False:
+        cur.execute(f"SELECT column_name, data_type FROM information_schema.columns WHERE table_name = '{TABLE_NAME}'")
+        schema = cur.fetchall()
+        st.write(schema)
+        print(schema)
 
 # schema:
 # [('firstName', 'text'), ('lastName', 'text'), ('email', 'character varying'), ('phoneNumber', 'text'), ('dateOfBirth', 'date'), ('nationality', 'text'), ('placeOfResidence', 'text'), ('linkedin', 'text'), ('website', 'text'), ('github', 'text'), ('pursuingDegree', 'text'), ('university', 'text'), ('participationReason', 'text'), ('whatToLearn', 'text'), ('areasOfInterest', 'text'), ('skills', 'text'), ('programmingExperience', 'text'), ('partOfTeam', 'boolean'), ('idea', 'text'), ('heardAbout', 'text'), ('participationConfirmation', 'boolean'), ('createdAt', 'timestamp with time zone'), ('id', 'integer')]
 
 
 # get data from database
-cur.execute(f"SELECT * FROM {TABLE_NAME}")
-rows = cur.fetchall()
-df = pd.DataFrame(rows)
-df.columns = [desc[0] for desc in cur.description]
+
+    cur.execute(f"SELECT * FROM {TABLE_NAME}")
+    rows = cur.fetchall()
+    df = pd.DataFrame(rows)
+    df.columns = [desc[0] for desc in cur.description]
 
 
 # filter the data
